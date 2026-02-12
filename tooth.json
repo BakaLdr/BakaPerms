@@ -2,7 +2,7 @@
   "format_version": 3,
   "format_uuid": "f7d94bb0-e42d-4db6-9694-78f583ae4ffc",
   "tooth": "github.com/BakaLdr/BakaPerms",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "info": {
     "name": "BakaPerms",
     "description": "A library for managing permissions for LeviLamina",

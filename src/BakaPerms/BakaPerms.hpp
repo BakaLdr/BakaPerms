@@ -18,7 +18,7 @@ public:
 
     [[nodiscard]] ll::mod::NativeMod& getSelf() const { return mSelf; }
 
-    [[nodiscard]] core::PermissionManager& getPermissionManager() const { return *mPermManager; }
+    [[nodiscard]] core::IPermissionManager& getPermissionManager() const { return *mPermManager; }
 
     bool load();
     bool enable();

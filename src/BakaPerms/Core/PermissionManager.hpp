@@ -57,11 +57,11 @@ public:
     auto               getGroupMembers(std::string_view groupUuid) const -> std::vector<std::string> override;
 
     // Internal: query ACEs by subject (for display)
-    auto getSubjectACEs(std::string_view subjectUuid) const -> std::vector<NodeACE>;
+    auto getSubjectACEs(std::string_view subjectUuid) const -> std::vector<NodeACE> override;
 
     // Internal: cache management
-    void invalidatePlayer(std::string_view uuid);
-    void invalidateAll();
+    void invalidatePlayer(std::string_view uuid) override;
+    void invalidateAll() override;
 
 private:
     auto buildToken(SubjectKind kind, std::string_view uuid) const -> AccessToken;

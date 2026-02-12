@@ -42,6 +42,13 @@ public:
     [[nodiscard]] virtual bool removePlayerFromGroup(std::string_view playerUuid, std::string_view groupUuid) = 0;
     virtual auto               getPlayerGroups(std::string_view playerUuid) const -> std::vector<GroupInfo>   = 0;
     virtual auto               getGroupMembers(std::string_view groupUuid) const -> std::vector<std::string>  = 0;
+
+    // Query ACEs by subject
+    virtual auto getSubjectACEs(std::string_view subjectUuid) const -> std::vector<NodeACE> = 0;
+
+    // Cache
+    virtual void invalidatePlayer(std::string_view uuid) = 0;
+    virtual void invalidateAll()                         = 0;
 };
 
 } // namespace BakaPerms::core

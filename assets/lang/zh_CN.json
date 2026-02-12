@@ -1,0 +1,98 @@
+{
+  "bakaperms": {
+    "exception": {
+      "header": "异常: {0}",
+      "stacktrace": "堆栈跟踪:",
+      "stack_frame": "    位于 {0}({1}:{2})",
+      "stack_collapsed": "    ... 还有{0}个",
+      "operation_failed": "操作失败: {0}",
+      "invalid_argument": "无效参数: {0}",
+      "detail": {
+        "group_cycle": "设置此父组会在组层级中产生循环",
+        "group_exists": "名为 '{0}' 的用户组已存在",
+        "save_config": "保存配置时发生错误"
+      }
+    },
+    "command": {
+      "description": "BakaPerms 权限管理"
+    },
+    "error": {
+      "player_not_found": "未找到玩家 '{0}'",
+      "unsupported_db": "不支持的数据库类型: {0}",
+      "load_failed": "BakaPerms 加载失败: {0}",
+      "group_not_found": "未找到用户组 '{0}'",
+      "parent_group_not_found": "未找到父用户组 '{0}'",
+      "create_group_failed": "创建用户组失败: {0}",
+      "operation_failed": "操作失败: {0}"
+    },
+    "group": {
+      "created": "用户组 '{0}' 已创建 (uuid: {1})",
+      "deleted": "用户组 '{0}' 已删除",
+      "parent_cleared": "已清除用户组 '{0}' 的父组",
+      "parent_set": "已将 '{0}' 的父组设为 '{1}'",
+      "list_empty": "没有已定义的用户组",
+      "list_header": "用户组 ({0}):",
+      "list_entry": "{0} (uuid: {1})",
+      "info_header": "用户组: {0} (uuid: {1})",
+      "info_parent": "父组: {0}",
+      "info_aces": "访问控制项:",
+      "info_members": "成员 ({0}):"
+    },
+    "user": {
+      "added_to_group": "已将 '{0}' 添加到用户组 '{1}'",
+      "already_in_group": "'{0}' 已在用户组 '{1}' 中",
+      "removed_from_group": "已将 '{0}' 从用户组 '{1}' 移除",
+      "not_in_group": "'{0}' 不在用户组 '{1}' 中",
+      "info_header": "玩家: {0} (uuid: {1})",
+      "info_groups": "所属用户组 ({0}):",
+      "info_group_entry": "{0}",
+      "info_no_groups": "所属用户组: 无",
+      "info_aces": "访问控制项:",
+      "info_no_aces": "访问控制项: 无"
+    },
+    "check": {
+      "result": "{1} '{2}' 对权限节点 '{0}' 的结果: {3}"
+    },
+    "acl": {
+      "appended": "已向 '{0}' 追加 ACE: {1} {2} = {3}",
+      "inserted": "已在 '{1}' 的 #{0} 处插入 ACE: {2} {3} = {4}",
+      "removed": "已从 '{1}' 移除 #{0} 号 ACE",
+      "moved": "已在 '{2}' 中将 ACE #{0} 移至 #{1}",
+      "cleared": "已清除权限节点 '{0}' 的所有 ACE",
+      "empty": "权限节点 '{0}' 无 ACL",
+      "info_header": "'{0}' 的 ACL ({1} 条):"
+    },
+    "reload": {
+      "success": "权限缓存已清除"
+    },
+    "label": {
+      "allow": "允许",
+      "deny": "拒绝",
+      "unknown": "未知",
+      "player": "玩家",
+      "group": "用户组",
+      "subject": "主体",
+      "direct_group": "直属组",
+      "inherited_group": "继承组",
+      "wildcard": "通配符",
+      "everyone": "所有人"
+    },
+    "trace": {
+      "header": "正在对{1} \"{2}\" 进行权限节点 \"{0}\" 的跟踪...",
+      "token_header": "令牌 ({0} 条):",
+      "searching": "正在查找权限节点 \"{0}\"...",
+      "no_acl": "未找到权限节点 \"{0}\" 的 ACL。",
+      "found_node": "发现节点 \"{0}\"，正在遍历 ACL...",
+      "ace_matched": "{0}[{1}] = {2} {3}，已匹配 [{4}]。",
+      "ace_skipped": "{0}[{1}] = {2} {3}，已跳过。",
+      "match_detail": "通过 {1} [{2}] 匹配到 #{0} 号条目。",
+      "resolved": "在节点 \"{0}\" 处解析完成: {1}。",
+      "no_match": "未找到与{0} \"{1}\" 关联的条目。",
+      "implicit_deny": "在节点 \"{0}\" 中未找到匹配条目（隐式拒绝）。",
+      "no_acl_for_subject": "未找到与{0} \"{1}\" 相关的 ACL。",
+      "complete": "已完成{0} \"{1}\" 对权限节点 \"{2}\" 的跟踪，结果: {3}。",
+      "suffix_implicit": "（隐式拒绝）",
+      "suffix_default": "（默认拒绝）"
+    }
+  }
+}

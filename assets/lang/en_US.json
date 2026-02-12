@@ -1,0 +1,98 @@
+{
+  "bakaperms": {
+    "exception": {
+      "header": "Exception: {0}",
+      "stacktrace": "Stacktrace:",
+      "stack_frame": "    at {0}({1}:{2})",
+      "stack_collapsed": "    ...{0} more",
+      "operation_failed": "Operation failed: {0}",
+      "invalid_argument": "Invalid argument: {0}",
+      "detail": {
+        "group_cycle": "Setting this parent would create a cycle in the group hierarchy",
+        "group_exists": "A group named '{0}' already exists",
+        "save_config": "An error occurred while saving the configuration"
+      }
+    },
+    "command": {
+      "description": "BakaPerms permission management"
+    },
+    "error": {
+      "player_not_found": "Player '{0}' not found",
+      "unsupported_db": "Unsupported database type: {0}",
+      "load_failed": "Failed to load BakaPerms: {0}",
+      "group_not_found": "Group '{0}' not found",
+      "parent_group_not_found": "Parent group '{0}' not found",
+      "create_group_failed": "Failed to create group: {0}",
+      "operation_failed": "Failed: {0}"
+    },
+    "group": {
+      "created": "Group '{0}' created (uuid: {1})",
+      "deleted": "Group '{0}' deleted",
+      "parent_cleared": "Cleared parent for group '{0}'",
+      "parent_set": "Set parent of '{0}' to '{1}'",
+      "list_empty": "No groups defined",
+      "list_header": "Groups ({0}):",
+      "list_entry": "{0} (uuid: {1})",
+      "info_header": "Group: {0} (uuid: {1})",
+      "info_parent": "Parent: {0}",
+      "info_aces": "ACEs:",
+      "info_members": "Members ({0}):"
+    },
+    "user": {
+      "added_to_group": "Added '{0}' to group '{1}'",
+      "already_in_group": "'{0}' is already in group '{1}'",
+      "removed_from_group": "Removed '{0}' from group '{1}'",
+      "not_in_group": "'{0}' is not in group '{1}'",
+      "info_header": "Player: {0} (uuid: {1})",
+      "info_groups": "Groups ({0}):",
+      "info_group_entry": "{0}",
+      "info_no_groups": "Groups: none",
+      "info_aces": "ACEs:",
+      "info_no_aces": "ACEs: none"
+    },
+    "check": {
+      "result": "Permission '{0}' for {1} '{2}': {3}"
+    },
+    "acl": {
+      "appended": "Appended ACE to '{0}': {1} {2} = {3}",
+      "inserted": "Inserted ACE at #{0} in '{1}': {2} {3} = {4}",
+      "removed": "Removed ACE #{0} from '{1}'",
+      "moved": "Moved ACE #{0} -> #{1} in '{2}'",
+      "empty": "No ACL for node '{0}'",
+      "info_header": "ACL for '{0}' ({1} entries):",
+      "cleared": "Cleared all ACEs for node '{0}'"
+    },
+    "reload": {
+      "success": "Permission cache cleared"
+    },
+    "label": {
+      "allow": "Allow",
+      "deny": "Deny",
+      "unknown": "Unknown",
+      "player": "player",
+      "group": "group",
+      "subject": "Subject",
+      "direct_group": "DirectGroup",
+      "inherited_group": "InheritedGroup",
+      "wildcard": "Wildcard",
+      "everyone": "Everyone"
+    },
+    "trace": {
+      "header": "Tracing permission node \"{0}\" for {1} \"{2}\"...",
+      "token_header": "Token ({0} entries):",
+      "searching": "Searching for permission node \"{0}\"...",
+      "no_acl": "No ACL found for node \"{0}\".",
+      "found_node": "Found node \"{0}\", traversing ACL...",
+      "ace_matched": "{0}[{1}] = {2} {3}, matched [{4}].",
+      "ace_skipped": "{0}[{1}] = {2} {3}, skipping.",
+      "match_detail": "Matched entry #{0} via {1} [{2}].",
+      "resolved": "Resolved at node \"{0}\": {1}.",
+      "no_match": "No entry associated with {0} \"{1}\" found.",
+      "implicit_deny": "No matching entry found in node \"{0}\" (implicit deny).",
+      "no_acl_for_subject": "No ACL found for {0} \"{1}\".",
+      "complete": "Trace complete for {0} \"{1}\" on node \"{2}\". Result: {3}.",
+      "suffix_implicit": " (implicit deny)",
+      "suffix_default": " (default deny)"
+    }
+  }
+}

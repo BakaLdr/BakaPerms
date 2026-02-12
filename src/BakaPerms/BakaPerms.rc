@@ -1,0 +1,7 @@
+#include "BakaPerms/Utils/Resources.h"
+#include "winres.h"
+
+#pragma code_page(65001)
+
+LANGUAGE_EN_US JSON "assets\\lang\\en_US.json"
+LANGUAGE_ZH_CN JSON "assets\\lang\\zh_CN.json"

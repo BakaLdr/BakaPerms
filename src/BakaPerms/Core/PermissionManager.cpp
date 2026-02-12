@@ -12,6 +12,10 @@ PermissionManager::PermissionManager(std::unique_ptr<database::IDatabase> db) : 
     repo_.initializeSchema();
 }
 
+void PermissionManager::invalidate() {
+    // Called by ServiceManager when unregistering. Cleanup handled by BakaPerms::disable().
+}
+
 // Permission checking
 auto PermissionManager::checkPermission(const std::string_view playerUuid, const std::string_view node) -> AccessMask {
     uint64_t gen;
@@ -99,11 +103,6 @@ void PermissionManager::clearNodeACL(const std::string_view node) {
     invalidateAll();
 }
 
-auto PermissionManager::getSubjectACEs(const std::string_view subjectUuid) const
-    -> std::vector<data::PermissionRepository::NodeACE> {
-    return repo_.getSubjectACEs(subjectUuid);
-}
-
 // Group management
 auto PermissionManager::createGroup(
     const std::string_view                 name,
@@ -162,6 +161,10 @@ auto PermissionManager::getPlayerGroups(const std::string_view playerUuid) const
 
 auto PermissionManager::getGroupMembers(const std::string_view groupUuid) const -> std::vector<std::string> {
     return repo_.getGroupMembers(groupUuid);
+}
+
+auto PermissionManager::getSubjectACEs(const std::string_view subjectUuid) const -> std::vector<NodeACE> {
+    return repo_.getSubjectACEs(subjectUuid);
 }
 
 // Cache

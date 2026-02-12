@@ -1,5 +1,6 @@
 #pragma once
 #include "BakaPerms/Core/PermissionManager.hpp"
+#include "BakaPerms/Utils/Macros.h"
 
 #include <ll/api/event/ListenerBase.h>
 #include <ll/api/mod/NativeMod.h>
@@ -11,7 +12,7 @@ namespace BakaPerms {
 class BakaPerms {
 
 public:
-    static BakaPerms& getInstance();
+    BAKA_PERMAPI static BakaPerms& getInstance();
 
     BakaPerms() : mSelf(*ll::mod::NativeMod::current()) {}
 
@@ -26,7 +27,7 @@ public:
 
 private:
     ll::mod::NativeMod&                      mSelf;
-    std::unique_ptr<core::PermissionManager> mPermManager;
+    std::shared_ptr<core::PermissionManager> mPermManager;
     ll::event::ListenerPtr                   mPlayerDisconnectListener;
 };
 

@@ -9,6 +9,7 @@
 #include <ll/api/event/player/PlayerDisconnectEvent.h>
 #include <ll/api/mod/RegisterHelper.h>
 #include <ll/api/service/PlayerInfo.h>
+#include <ll/api/service/ServiceManager.h>
 
 #include <filesystem>
 #include <memory>
@@ -35,7 +36,7 @@ bool BakaPerms::load() {
         if (config::config.Database.Type == "sqlite") {
             dbPath       = dataDir / config::config.Database.SQLite.Path;
             auto db      = std::make_unique<database::SQLiteDatabase>(dbPath);
-            mPermManager = std::make_unique<core::PermissionManager>(std::move(db));
+            mPermManager = std::make_shared<core::PermissionManager>(std::move(db));
         } else if (/*config::config.Database.Type == "postgresql"*/ true) {
             throw utils::exception::InvalidArgumentException(
                 "bakaperms.error.unsupported_db"_tr(config::config.Database.Type)
@@ -52,6 +53,8 @@ bool BakaPerms::load() {
 }
 
 bool BakaPerms::enable() {
+    ll::service::ServiceManager::getInstance().registerService(mPermManager);
+
     auto& eventBus = ll::event::EventBus::getInstance();
 
     mPlayerDisconnectListener = eventBus.emplaceListener<ll::event::PlayerDisconnectEvent>(
@@ -68,6 +71,9 @@ bool BakaPerms::enable() {
 }
 
 bool BakaPerms::disable() {
+    // Unregister permission service
+    ll::service::ServiceManager::getInstance().unregisterService(core::IPermissionManager::ServiceId);
+
     auto& eventBus = ll::event::EventBus::getInstance();
 
     if (mPlayerDisconnectListener) {

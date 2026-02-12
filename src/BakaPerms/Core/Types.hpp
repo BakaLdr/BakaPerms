@@ -86,4 +86,9 @@ struct PermissionTrace {
     AccessMask               finalResult{AccessMask::Deny};
 };
 
+struct NodeACE {
+    std::string node;
+    ACE         ace;
+};
+
 } // namespace BakaPerms::core

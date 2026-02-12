@@ -1,8 +1,8 @@
 #pragma once
+#include "BakaPerms/Core/IPermissionManager.hpp"
 #include "BakaPerms/Core/Types.hpp"
 #include "BakaPerms/Data/PermissionRepository.hpp"
 #include "BakaPerms/Database/IDatabase.hpp"
-#include "BakaPerms/Utils/Macros.h"
 
 #include <memory>
 #include <shared_mutex>
@@ -13,49 +13,55 @@
 
 namespace BakaPerms::core {
 
-class PermissionManager {
+class PermissionManager final : public IPermissionManager {
 public:
     explicit PermissionManager(std::unique_ptr<database::IDatabase> db);
 
+    // ll::service lifecycle
+    void invalidate() override;
+
     // Permission checking
-    BAKA_PERMAPI auto checkPermission(std::string_view playerUuid, std::string_view node) -> AccessMask;
+    auto checkPermission(std::string_view playerUuid, std::string_view node) -> AccessMask override;
 
     // Trace
-    BAKA_PERMAPI auto tracePermission(SubjectKind kind, std::string_view uuid, std::string_view node) const
-        -> PermissionTrace;
+    auto tracePermission(SubjectKind kind, std::string_view uuid, std::string_view node) const
+        -> PermissionTrace override;
 
     // ACL management
-    BAKA_PERMAPI void appendACE(std::string_view node, std::string_view subjectUuid, int subjectType, AccessMask mask);
-    BAKA_PERMAPI void
-    insertACE(std::string_view node, int position, std::string_view subjectUuid, int subjectType, AccessMask mask);
-    BAKA_PERMAPI void removeACE(std::string_view node, int position);
-    BAKA_PERMAPI void moveACE(std::string_view node, int from, int to);
-    BAKA_PERMAPI auto getNodeACL(std::string_view node) const -> std::vector<ACE>;
-    BAKA_PERMAPI void clearNodeACL(std::string_view node);
-
-    // Query ACEs by subject (for display)
-    BAKA_PERMAPI auto getSubjectACEs(std::string_view subjectUuid) const
-        -> std::vector<data::PermissionRepository::NodeACE>;
+    void appendACE(std::string_view node, std::string_view subjectUuid, int subjectType, AccessMask mask) override;
+    void insertACE(
+        std::string_view node,
+        int              position,
+        std::string_view subjectUuid,
+        int              subjectType,
+        AccessMask       mask
+    ) override;
+    void removeACE(std::string_view node, int position) override;
+    void moveACE(std::string_view node, int from, int to) override;
+    auto getNodeACL(std::string_view node) const -> std::vector<ACE> override;
+    void clearNodeACL(std::string_view node) override;
 
     // Group management
-    BAKA_PERMAPI auto createGroup(std::string_view name, const std::optional<std::string_view>& parentUuid) const
-        -> std::string;
-    BAKA_PERMAPI void deleteGroup(std::string_view groupUuid);
-    BAKA_PERMAPI void setGroupParent(std::string_view groupUuid, const std::optional<std::string_view>& parentUuid);
-
-    BAKA_PERMAPI auto getGroup(std::string_view uuid) const -> std::optional<GroupInfo>;
-    BAKA_PERMAPI auto getGroupByName(std::string_view name) const -> std::optional<GroupInfo>;
-    BAKA_PERMAPI auto getAllGroups() const -> std::vector<GroupInfo>;
+    auto createGroup(std::string_view name, const std::optional<std::string_view>& parentUuid) const
+        -> std::string override;
+    void deleteGroup(std::string_view groupUuid) override;
+    void setGroupParent(std::string_view groupUuid, const std::optional<std::string_view>& parentUuid) override;
+    auto getGroup(std::string_view uuid) const -> std::optional<GroupInfo> override;
+    auto getGroupByName(std::string_view name) const -> std::optional<GroupInfo> override;
+    auto getAllGroups() const -> std::vector<GroupInfo> override;
 
     // Membership
-    [[nodiscard]] BAKA_PERMAPI bool addPlayerToGroup(std::string_view playerUuid, std::string_view groupUuid);
-    [[nodiscard]] BAKA_PERMAPI bool removePlayerFromGroup(std::string_view playerUuid, std::string_view groupUuid);
-    BAKA_PERMAPI auto getPlayerGroups(std::string_view playerUuid) const -> std::vector<GroupInfo>;
-    BAKA_PERMAPI auto getGroupMembers(std::string_view groupUuid) const -> std::vector<std::string>;
+    [[nodiscard]] bool addPlayerToGroup(std::string_view playerUuid, std::string_view groupUuid) override;
+    [[nodiscard]] bool removePlayerFromGroup(std::string_view playerUuid, std::string_view groupUuid) override;
+    auto               getPlayerGroups(std::string_view playerUuid) const -> std::vector<GroupInfo> override;
+    auto               getGroupMembers(std::string_view groupUuid) const -> std::vector<std::string> override;
 
-    // Cache
-    BAKA_PERMAPI void invalidatePlayer(std::string_view uuid);
-    BAKA_PERMAPI void invalidateAll();
+    // Internal: query ACEs by subject (for display)
+    auto getSubjectACEs(std::string_view subjectUuid) const -> std::vector<NodeACE>;
+
+    // Internal: cache management
+    void invalidatePlayer(std::string_view uuid);
+    void invalidateAll();
 
 private:
     auto buildToken(SubjectKind kind, std::string_view uuid) const -> AccessToken;

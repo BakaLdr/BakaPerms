@@ -1,5 +1,5 @@
 #pragma once
-#ifdef BAKA_PERM_EXPORT
+#ifdef BAKAPERMS_EXPORTS
 #define BAKA_PERMAPI __declspec(dllexport)
 #else
 #define BAKA_PERMAPI __declspec(dllimport)

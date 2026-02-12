@@ -108,21 +108,19 @@ static auto rowToGroupInfo(const database::Row& row) -> core::GroupInfo {
 }
 
 auto PermissionRepository::getGroup(const std::string_view uuid) const -> std::optional<core::GroupInfo> {
-    const auto row =
-        db_.queryOne("SELECT uuid, name, parent_uuid FROM groups WHERE uuid = ?", {std::string(uuid)});
+    const auto row = db_.queryOne("SELECT uuid, name, parent_uuid FROM groups WHERE uuid = ?", {std::string(uuid)});
     if (!row) return std::nullopt;
     return rowToGroupInfo(*row);
 }
 
 auto PermissionRepository::getGroupByName(const std::string_view name) const -> std::optional<core::GroupInfo> {
-    const auto row =
-        db_.queryOne("SELECT uuid, name, parent_uuid FROM groups WHERE name = ?", {std::string(name)});
+    const auto row = db_.queryOne("SELECT uuid, name, parent_uuid FROM groups WHERE name = ?", {std::string(name)});
     if (!row) return std::nullopt;
     return rowToGroupInfo(*row);
 }
 
 auto PermissionRepository::getAllGroups() const -> std::vector<core::GroupInfo> {
-    const auto rows = db_.query("SELECT uuid, name, parent_uuid FROM groups ORDER BY name");
+    const auto                   rows = db_.query("SELECT uuid, name, parent_uuid FROM groups ORDER BY name");
     std::vector<core::GroupInfo> result;
     result.reserve(rows.size());
     for (const auto& row : rows) {
@@ -137,7 +135,7 @@ bool PermissionRepository::addPlayerToGroup(const std::string_view playerUuid, c
                "INSERT OR IGNORE INTO player_groups (player_uuid, group_uuid) VALUES (?, ?)",
                {std::string(playerUuid), std::string(groupUuid)}
            )
-        > 0;
+         > 0;
 }
 
 bool PermissionRepository::removePlayerFromGroup(
@@ -148,7 +146,7 @@ bool PermissionRepository::removePlayerFromGroup(
                "DELETE FROM player_groups WHERE player_uuid = ? AND group_uuid = ?",
                {std::string(playerUuid), std::string(groupUuid)}
            )
-        > 0;
+         > 0;
 }
 
 auto PermissionRepository::getPlayerGroups(const std::string_view playerUuid) const -> std::vector<core::GroupInfo> {
@@ -325,13 +323,13 @@ void PermissionRepository::clearNodeACL(const std::string_view node) const {
     db_.execute("DELETE FROM permissions WHERE node = ?", {std::string(node)});
 }
 
-auto PermissionRepository::getSubjectACEs(const std::string_view subjectUuid) const -> std::vector<NodeACE> {
+auto PermissionRepository::getSubjectACEs(const std::string_view subjectUuid) const -> std::vector<core::NodeACE> {
     const auto rows = db_.query(
         "SELECT node, order_index, subject_uuid, subject_type, access_mask "
         "FROM permissions WHERE subject_uuid = ? ORDER BY node, order_index",
         {std::string(subjectUuid)}
     );
-    std::vector<NodeACE> result;
+    std::vector<core::NodeACE> result;
     result.reserve(rows.size());
     for (const auto& row : rows) {
         result.push_back({
@@ -355,10 +353,7 @@ void PermissionRepository::reindexACL(const std::string_view node) const {
 void PermissionRepository::writeACL(const std::string_view node, const std::vector<core::ACE>& acl) const {
     // Move all to negative temporary indices to avoid PRIMARY KEY conflicts during reorder.
     // -(order_index + 1) maps 0→-1, 1→-2, etc. — all unique and negative.
-    db_.execute(
-        "UPDATE permissions SET order_index = -(order_index + 1) WHERE node = ?",
-        {std::string(node)}
-    );
+    db_.execute("UPDATE permissions SET order_index = -(order_index + 1) WHERE node = ?", {std::string(node)});
     // Update each ACE to its new position, matching by its original (now negated) order_index.
     // This preserves created_at and other columns.
     for (int i = 0; i < static_cast<int>(acl.size()); ++i) {

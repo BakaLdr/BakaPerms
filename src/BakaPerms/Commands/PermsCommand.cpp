@@ -127,7 +127,7 @@ static auto resolveSubjectUuid(const std::string& subjectName, const bool isGrou
     return resolvePlayerUuid(subjectName, output);
 }
 
-static auto resolveUuidLabel(const std::string& uuid, const core::PermissionManager& mgr) -> std::string {
+static auto resolveUuidLabel(const std::string& uuid, const core::IPermissionManager& mgr) -> std::string {
     if (uuid == "*") return "bakaperms.label.everyone"_tr();
     if (auto group = mgr.getGroup(uuid)) {
         return std::format("{}:{}", "bakaperms.label.group"_tr(), group->name);
@@ -150,7 +150,7 @@ static auto tokenEntryKindToString(const core::TokenEntryKind kind) -> std::stri
     return "bakaperms.label.unknown"_tr();
 }
 
-static auto formatTrace(const core::PermissionTrace& trace, core::PermissionManager& mgr) -> std::string {
+static auto formatTrace(const core::PermissionTrace& trace, core::IPermissionManager& mgr) -> std::string {
     // Resolve subject display name
     std::string kindStr =
         trace.subjectKind == core::SubjectKind::Player ? "bakaperms.label.player"_tr() : "bakaperms.label.group"_tr();

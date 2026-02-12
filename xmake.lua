@@ -23,7 +23,7 @@ target("BakaPerms")
     set_kind("shared")
     set_languages("c++23")
     set_symbols("debug")
-
+    add_headerfiles("src/(BakaPerms/**.h)", "src/(BakaPerms/**.hpp)")
     add_files("src/**.cpp")
     add_files("src/BakaPerms/BakaPerms.rc")
     add_includedirs("src")

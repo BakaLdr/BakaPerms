@@ -1,16 +1,16 @@
 {
   "format_version": 3,
-  "format_uuid": "289f771f-2c9a-4d73-9f3f-8492495a924d",
-  "tooth": "github.com/LiteLDev/levilamina-mod-template",
-  "version": "0.0.0",
+  "format_uuid": "f7d94bb0-e42d-4db6-9694-78f583ae4ffc",
+  "tooth": "github.com/BakaLdr/BakaPerms",
+  "version": "0.1.0",
   "info": {
-    "name": "My Mod",
-    "description": "Description of my mod",
+    "name": "BakaPerms",
+    "description": "A library for managing permissions for LeviLamina",
     "tags": [
       "platform:levilamina",
       "type:mod"
     ],
-    "avatar_url": "https://example.com/my-mod/avatar.png"
+    "avatar_url": "https://avatars.githubusercontent.com/u/259883281"
   },
   "variants": [
     {
@@ -23,47 +23,13 @@
         {
           "type": "zip",
           "urls": [
-            "https://{{tooth}}/releases/download/v{{version}}/levilamina-mod-template-server-windows-x64.zip"
+            "https://{{tooth}}/releases/download/v{{version}}/BakaPerms-server-windows-x64.zip"
           ],
           "placements": [
             {
               "type": "dir",
-              "src": "my-mod/",
-              "dest": "plugins/my-mod/"
-            }
-          ]
-        }
-      ],
-      "preserve_files": [],
-      "remove_files": [],
-      "scripts": {
-        "pre_install": [],
-        "install": [],
-        "post_install": [],
-        "pre_pack": [],
-        "post_pack": [],
-        "pre_uninstall": [],
-        "uninstall": [],
-        "post_uninstall": []
-      }
-    },
-    {
-      "label": "client",
-      "platform": "win-x64",
-      "dependencies": {
-        "github.com/LiteLDev/LeviLamina#client": "1.8.*"
-      },
-      "assets": [
-        {
-          "type": "zip",
-          "urls": [
-            "https://{{tooth}}/releases/download/v{{version}}/levilamina-mod-template-client-windows-x64.zip"
-          ],
-          "placements": [
-            {
-              "type": "dir",
-              "src": "my-mod/",
-              "dest": "mods/my-mod/"
+              "src": "BakaPerms/",
+              "dest": "plugins/BakaPerms/"
             }
           ]
         }
